@@ -8,41 +8,10 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { createCabin } from "../../services/apiCabins";
-
-const FormRow = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
-
-  padding: 1.2rem 0;
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    padding-bottom: 0;
-  }
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
-  }
-`;
+import FormRow from "../../ui/FormRow";
 
 const Label = styled.label`
   font-weight: 500;
-`;
-
-const Error = styled.span`
-  font-size: 1.4rem;
-  color: var(--color-red-700);
 `;
 
 function CreateCabinForm() {
@@ -80,20 +49,18 @@ function CreateCabinForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
-      <FormRow>
-        <Label htmlFor="name">Cabin name</Label>
+      <FormRow label={"Cabin Name"} error={errors?.name?.message}>
         <Input
           type="text"
           id="name"
           {...register("name", {
             required: "This field is required",
           })}
+          disabled={isCreating}
         />
-        {errors?.name?.message && <Error>{errors.name.message}</Error>}
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="maxCapacity">Maximum capacity</Label>
+      <FormRow label={"Maximum Capacity"} error={errors?.maxCapacity?.message}>
         <Input
           type="number"
           id="maxCapacity"
@@ -104,14 +71,11 @@ function CreateCabinForm() {
               message: "Capacity should be at least 1 ",
             },
           })}
+          disabled={isCreating}
         />
-        {errors?.maxCapacity?.message && (
-          <Error>{errors.maxCapacity.message}</Error>
-        )}
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="regularPrice">Regular price</Label>
+      <FormRow label={"Regular Price"} error={errors?.regularPrice?.message}>
         <Input
           type="number"
           id="regularPrice"
@@ -123,34 +87,26 @@ function CreateCabinForm() {
             },
           })}
         />
-        {errors?.regularPrice?.message && (
-          <Error>{errors.regularPrice.message}</Error>
-        )}
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="discount">Discount</Label>
+      <FormRow label={"Discount"} error={errors?.discount?.message}>
         <Input
           type="number"
           id="discount"
+          defaultValue={0}
           {...register("discount", {
             required: "This field is required",
-            validate: (value) => {
-              if (!value) {
-                return "This field is required";
-              }
-              return (
-                value <= getValues().regularPrice ||
-                "Discount should be less than regular price"
-              );
-            },
+            validate: (value) =>
+              Number(value) <= Number(getValues().regularPrice) ||
+              "Discount should be less than regular price",
           })}
+          disabled={isCreating}
         />
-        {errors?.discount?.message && <Error>{errors.discount.message}</Error>}
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="description">Description for website</Label>
+      <FormRow
+        label={"Description for website"}
+        error={errors?.description?.message}>
         <Textarea
           type="number"
           id="description"
@@ -158,14 +114,11 @@ function CreateCabinForm() {
           {...register("description", {
             required: "This field is required",
           })}
+          disabled={isCreating}
         />
-        {errors?.description?.message && (
-          <Error>{errors.description.message}</Error>
-        )}
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="image">Cabin photo</Label>
+      <FormRow label={"Cabin photo"}>
         <FileInput id="image" accept="image/*" />
       </FormRow>
 

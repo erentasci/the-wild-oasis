@@ -40,7 +40,7 @@ function Filter({ filterField, options }) {
   const currentFilter = searchParams.get(filterField) || options[0].value;
 
   const handleFilter = (value) => {
-    searchParams.set("discount", value);
+    searchParams.set(filterField, value);
     setSearchParams(searchParams);
   };
 

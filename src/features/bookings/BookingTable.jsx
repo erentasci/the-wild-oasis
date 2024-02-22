@@ -6,7 +6,7 @@ import { useBookings } from "./useBookings";
 import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
-  const { isLoading, bookings } = useBookings();
+  const { isLoading, bookings, count } = useBookings();
 
   if (!bookings?.length) return <Empty resourceName="bookings" />;
 
@@ -30,7 +30,7 @@ function BookingTable() {
         />
 
         <Table.Footer>
-          <Pagination count={53} />
+          <Pagination count={count} />
         </Table.Footer>
       </Table>
     </Menus>

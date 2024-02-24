@@ -10,7 +10,7 @@ export function useLogout() {
     mutationFn: logoutApi,
     onSuccess: (user) => {
       console.log("User: ", user);
-      queryClient.setQueriesData(["user"], user);
+      queryClient.removeQueries(["user"]);
       toast.success("Logout successfully");
       navigate("/login", { replace: true });
     },

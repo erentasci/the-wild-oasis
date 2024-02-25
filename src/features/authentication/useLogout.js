@@ -9,13 +9,13 @@ export function useLogout() {
   const { mutate: logout, isLoading } = useMutation({
     mutationFn: logoutApi,
     onSuccess: (user) => {
-      console.log("User: ", user);
+      // console.log("User: ", user);
       queryClient.removeQueries(["user"]);
       toast.success("Logout successfully");
       navigate("/login", { replace: true });
     },
     onError: (error) => {
-      console.log("ERROR: ", error.message);
+      // console.log("ERROR: ", error.message);
       toast.error("Provided email or password is incorrect. Please try again.");
     },
   });

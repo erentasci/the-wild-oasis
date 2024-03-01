@@ -34,13 +34,7 @@ const StyledBody = styled.section`
   margin: 0.4rem 0;
 `;
 
-const StyledRow = styled(CommonRow)`
-  padding: 1.2rem 2.4rem;
 
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
 
 const Footer = styled.footer`
   background-color: var(--color-grey-50);

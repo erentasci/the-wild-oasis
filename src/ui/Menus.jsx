@@ -6,12 +6,6 @@ import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 
-const StyledMenu = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`;
-
 const StyledToggle = styled.button`
   background: none;
   border: none;
